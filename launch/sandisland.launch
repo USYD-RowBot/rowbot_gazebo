@@ -10,7 +10,7 @@
    -->
   <!-- Command line arguments -->
 
-  <arg name="world" default="sandisland_buoys.world" />
+  <arg name="world" default="ocean_buoys.world" />
   <arg name="name" default="WAMV" />
 
   <!-- Initial USV location and attitude-->
@@ -32,8 +32,8 @@
     <arg name="gui" value="true" />
   </include>
 
-  <!-- Load robot model -->
-  <arg name="urdf" default="$(find nps_robotx)/urdf/nps_wamv.xacro"/>
+    <!-- Load robot model -->
+  <arg name="urdf" default="$(find rowbot_description)/urdf/rowbot_wamv.xacro"/>
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg urdf)"/>
 
   <!-- Spawn model in Gazebo -->
@@ -42,19 +42,17 @@
 	      -R $(arg R) -P $(arg P) -Y $(arg Y)
 	      -urdf -param robot_description -model wamv"/>
   <!-- Driving with joystick -->
-  <include file="$(find robotx_gazebo)/launch/usv_diffdrive.launch"/>
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" />
-  
-  <!--node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
-    <param name="output_frame" value="odom"/>
-    <param name="freq" value="30.0"/>
-    <param name="sensor_timeout" value="1.0"/>
-    <param name="odom_used" value="true"/>
-    <param name="imu_used" value="true"/>
-    <param name="vo_used" value="true"/>
-    <param name="debug" value="false"/>
-    <param name="self_diagnose" value="false"/>
-  </node-->
-   
-  <node pkg="rowbot_navigation" name="odom_to_tf" type="odom_to_tf.py" output="screen" />
+  <!--include file="$(find robotx_gazebo)/launch/usv_diffdrive.launch"/-->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" >
+    <param name="publish_frequency" type="double" value="30.0" /> 
+  </node>
+
+  <node name="gps_conv" pkg="gps_common" type="utm_odometry_node">
+    <remap from="odom" to="vo"/>
+    <remap from="fix" to="/gps/fix" />
+    <param name="rot_covariance" value="99999" />
+    <param name="frame_id" value="base_footprint2" />
+  </node>
 </launch>
+   
+

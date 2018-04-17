@@ -50,8 +50,8 @@
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   <depend>robotx_gazebo</depend>
-  <depend>nps_robotx</depend>
-
+  <depend>gazebo_ros</depend>
+  <depend>robot_state_publisher</depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
