@@ -30,7 +30,11 @@
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true" />
+    
   </include>
+
+
+
 
     <!-- Load robot model -->
   <arg name="urdf" default="$(find rowbot_description)/urdf/rowbot_wamv.xacro"/>
@@ -42,17 +46,15 @@
 	      -R $(arg R) -P $(arg P) -Y $(arg Y)
 	      -urdf -param robot_description -model wamv"/>
   <!-- Driving with joystick -->
-  <!--include file="$(find robotx_gazebo)/launch/usv_diffdrive.launch"/-->
+  <include file="$(find robotx_gazebo)/launch/usv_diffdrive_v2.launch"/>
+
+  <arg name="use_tf_static" default="false"/> 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" >
     <param name="publish_frequency" type="double" value="30.0" /> 
+    <param name="use_tf_static" value="$(arg use_tf_static)"/>
   </node>
 
-  <node name="gps_conv" pkg="gps_common" type="utm_odometry_node">
-    <remap from="odom" to="vo"/>
-    <remap from="fix" to="/gps/fix" />
-    <param name="rot_covariance" value="99999" />
-    <param name="frame_id" value="base_footprint2" />
-  </node>
+  
 </launch>
    
 
