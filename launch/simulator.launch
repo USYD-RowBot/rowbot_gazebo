@@ -47,7 +47,7 @@
 	      -urdf -param robot_description -model wamv"/>
   <!-- Driving with joystick -->
   <!--include file="$(find robotx_gazebo)/launch/usv_diffdrive_v2.launch"/-->
-  <node pkg="robotx_gazebo" type="twist2drive_keyboard.py" name="twist2drive_keyboard" output="screen" />
+  <!--node pkg="robotx_gazebo" type="twist2drive_keyboard.py" name="twist2drive_keyboard" output="screen" /-->
 
   <arg name="use_tf_static" default="false"/> 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" >
