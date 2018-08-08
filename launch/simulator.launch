@@ -10,16 +10,16 @@
    -->
   <!-- Command line arguments -->
 
-  <arg name="world" default="sandisland_buoys_dock.world" />
+  <arg name="world" default="sandisland_task6.world" />
   <arg name="name" default="WAMV" />
 
   <!-- Initial USV location and attitude-->
-  <arg name="x" default="0" />
-  <arg name="y" default="0" />
+  <arg name="x" default="-0" />
+  <arg name="y" default="-0" />
   <arg name="z" default="0.1" />
   <arg name="P" default="0" />
   <arg name="R" default="0" />
-  <arg name="Y" default="0" />
+  <arg name="Y" default="1.507" />
 
 
   <param name="use_sim_time" value="true" />
